@@ -88,7 +88,7 @@ module.exports = function override(config, env) {
     const cssLoaderConfig = {
       localIdentName: '[local]___[hash:base64:5]' // default
     };
-    config = rewireCssModules(config, env);
+    config = rewireCssModules(config, env, cssLoaderConfig);
     // ...
     return config;
 }
