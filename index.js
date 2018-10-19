@@ -32,15 +32,15 @@ const addBeforeRule = (rulesSource, ruleMatcher, value) => {
     rules.splice(index, 0, value)
 }
 
-module.exports = function (config, env) {
+module.exports = function (config, env, loaderConfig = {}) {
     const cssRule = findRule(config.module.rules, cssRuleMatcher)
     const sassRule = cloneDeep(cssRule)
     const cssModulesRule = cloneDeep(cssRule)
 
     cssRule.exclude = /\.module\.css$/
-
+    const localIdentName = loaderConfig.localIdentName || '[local]___[hash:base64:5]';
     const cssModulesRuleCssLoader = findRule(cssModulesRule, cssLoaderMatcher)
-    cssModulesRuleCssLoader.options = Object.assign({modules: true, localIdentName: '[local]___[hash:base64:5]'}, cssModulesRuleCssLoader.options)
+    cssModulesRuleCssLoader.options = Object.assign({modules: true, localIdentName }, cssModulesRuleCssLoader.options)
     addBeforeRule(config.module.rules, fileLoaderMatcher, cssModulesRule)
 
     sassRule.test = /\.s[ac]ss$/

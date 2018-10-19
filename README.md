@@ -73,3 +73,23 @@ export default ({text}) => (
     <div className={styles.app}>{text}</div>
 )
 ```
+
+## Configuration 
+
+Add a configuration object as the last parameter. As followed (all options are listed):
+
+```javascript
+/* config-overrides.js */
+
+const rewireCssModules = require('react-app-rewire-css-modules');
+
+module.exports = function override(config, env) {
+    // ...
+    const cssLoaderConfig = {
+      localIdentName: '[local]___[hash:base64:5]' // default
+    };
+    config = rewireCssModules(config, env);
+    // ...
+    return config;
+}
+```
